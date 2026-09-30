@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚚ P H A N D O R A OWNER's</title>
+<style>
+:root{--bg:#000;--p1:#0a0a0a;--p2:#151515;--line:#262626;--tx:#fafafa;--mu:#737373;--no:#ef4444}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,Segoe UI,sans-serif;font-size:15px}
+button{cursor:pointer;border:0;border-radius:8px;padding:9px 13px;background:#fff;color:#000;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:14px}
+button:hover{opacity:.85}
+button.g{background:var(--p2);color:var(--tx);border:1px solid var(--line)}
+button.r{background:var(--no);color:#fff}
+button.sq{padding:9px;width:38px;height:38px}
+input[type=text],input[type=password],input:not([type]){background:var(--p2);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:11px;width:100%;outline:0}
+input:focus{border-color:#555}
+.i{flex:none}
+#login{height:100%;display:flex;align-items:center;justify-content:center}
+#login form{width:min(340px,90%);display:grid;gap:12px;text-align:center}
+.logo{font-weight:800;letter-spacing:3px;line-height:1.5}
+#err{color:var(--no);font-size:14px;min-height:18px}
+#app{display:none;height:100dvh;overflow:hidden;grid-template-columns:250px minmax(0,1fr) 210px;grid-template-rows:minmax(0,1fr)}
+aside{min-height:0;background:var(--p1);display:flex;flex-direction:column;overflow:auto;border-color:var(--line)}
+#left{border-right:1px solid var(--line)} #right{border-left:1px solid var(--line);padding:14px}
+.sec{padding:14px 14px 0}
+.sec h4{color:var(--mu);font-size:11px;letter-spacing:1px;margin:14px 0 8px}
+.ch{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;background:var(--p2);color:#fff}
+.u{display:flex;align-items:center;gap:9px;padding:5px 4px;font-size:14px;border-radius:6px}
+.u.off{opacity:.35} .u small{display:block;color:var(--mu);font-size:11px}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#262626;color:#fff;font-weight:700;overflow:hidden;flex:none;box-shadow:0 0 0 2px transparent;transition:box-shadow .1s}
+.av img{width:100%;height:100%;object-fit:cover}
+.speaking .av{box-shadow:0 0 0 2px #fff}
+.live{margin-left:auto;font-size:9px;background:#fff;color:#000;border-radius:4px;padding:2px 5px;font-weight:800;letter-spacing:.5px}
+#vc{display:flex;gap:6px;margin:10px 0}
+#vc.on button{flex:1}
+#me{margin-top:auto;padding:10px;border-top:1px solid var(--line);display:flex;align-items:center;gap:9px;background:#050505}
+#me .n{flex:1;min-width:0;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+main{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+header{display:flex;align-items:center;gap:10px;padding:0 14px;height:52px;border-bottom:1px solid var(--line);font-weight:700}
+header .sp{flex:1} #menu{display:none}
+#stage{display:none;flex-wrap:wrap;gap:6px;padding:6px;background:#050505;border-bottom:1px solid var(--line);max-height:55%;overflow:auto}
+.tile{position:relative;flex:1 1 320px;min-width:0;background:#111;border-radius:10px;overflow:hidden}
+.tile video{width:100%;display:block;max-height:50vh;background:#000}
+.tile span{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.75);padding:3px 9px;border-radius:6px;font-size:12px;font-weight:600}
+#msgs{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:14px;display:flex;flex-direction:column;gap:14px}
+.m{display:flex;gap:11px}
+.m .h{display:flex;align-items:baseline;gap:7px} .m .h b{font-size:15px} .m small{color:var(--mu);font-size:11px}
+.m img.p{display:block;max-width:min(380px,100%);border-radius:10px;margin-top:5px;border:1px solid var(--line)}
+.m .t{white-space:pre-wrap;word-break:break-word;color:#e5e5e5;margin-top:1px}
+.sys{align-self:center;display:flex;align-items:center;gap:7px;color:var(--mu);font-size:12.5px;background:var(--p2);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+#bar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--p1)}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:20;align-items:center;justify-content:center}
+#modal.show{display:flex}
+.card{width:min(420px,94%);max-height:92%;overflow:auto;background:var(--p1);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px}
+.card h3{display:flex;align-items:center;justify-content:space-between}
+.card label{font-size:12px;color:var(--mu);display:block;margin-bottom:6px;letter-spacing:.5px}
+.row{display:flex;align-items:center;gap:10px}
+.sw{display:flex;gap:7px;flex-wrap:wrap}
+.sw i{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid var(--line)}
+input[type=color]{width:34px;height:28px;padding:0;border:0;background:none;cursor:pointer}
+input[type=range]{width:100%}
+@media(max-width:800px){
+ #app{grid-template-columns:1fr} #right{display:none} #menu{display:inline-flex}
+ #left{position:fixed;z-index:10;top:0;bottom:0;left:0;width:270px;transform:translateX(-100%);transition:transform .2s}
+ #left.open{transform:none}
+}
+#chl{display:grid;gap:4px}
+.chb{cursor:pointer;background:transparent;color:#a3a3a3;transition:.15s}
+.chb:hover{background:var(--p2);color:#fff} .chb.act{background:#fff;color:#000;font-weight:700}
+.bd{margin-left:auto;background:#fff;color:#000;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:800}
+.chb.act .bd{background:#000;color:#fff}
+.m{position:relative;padding:4px 8px;border-radius:8px;animation:in .18s ease-out}
+.m:hover{background:#0f0f0f}
+.del{display:none;position:absolute;right:8px;top:4px;padding:4px;background:var(--p2);color:var(--mu);border:1px solid var(--line)}
+.m:hover .del{display:flex} .del:hover{color:var(--no)}
+.m .h svg{align-self:center}
+.sys{animation:in .18s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#262626;border-radius:8px}::-webkit-scrollbar-track{background:transparent}
+.alt{font-size:13px;color:var(--mu)} .alt a{color:#fff;cursor:pointer;text-decoration:underline;margin-left:4px}
+#lf{background:var(--p1);border:1px solid var(--line);border-radius:16px;padding:26px}
+.av{transition:transform .15s} .u:hover .av{transform:scale(1.06)}
+</style>
+</head>
+<body>
+<div id="login">
+  <form id="lf">
+    <div class="logo" style="font-size:22px">⚚ P H A N D O R A<br>OWNER's</div>
+    <div id="ttl" style="font-weight:700;color:#a3a3a3"></div>
+    <input id="un" placeholder="Kullanıcı adı" autocomplete="username">
+    <input id="pw" type="password" placeholder="Şifre" autocomplete="current-password">
+    <input id="pw2" type="password" placeholder="Şifre tekrar" autocomplete="new-password">
+    <div id="err"></div>
+    <button id="go"></button>
+    <div class="alt"><span id="altq"></span><a id="alt"></a></div>
+  </form>
+</div>
+
+<div id="app">
+  <aside id="left">
+    <div class="sec">
+      <div class="logo" style="font-size:14px">⚚ P H A N D O R A<br>OWNER's</div>
+      <h4>METİN KANALI</h4>
+      <div id="chl"></div>
+      <h4>SES KANALI</h4>
+      <div class="ch"><i data-ic="volume" data-s="16"></i>Sesli Oda</div>
+      <div id="vlist" style="margin-top:6px"></div>
+      <div id="vc"></div>
+    </div>
+    <div id="me">
+      <span id="meav"></span>
+      <div class="n" id="mename"></div>
+      <button class="g sq" id="set1" title="Ayarlar"><i data-ic="sliders"></i></button>
+    </div>
+  </aside>
+  <main>
+    <header>
+      <button class="g sq" id="menu"><i data-ic="menu"></i></button>
+      <i data-ic="hash" data-s="18"></i> <span id="chname">genel</span>
+      <span class="sp"></span>
+      <button class="g sq" id="set2" title="Ayarlar"><i data-ic="sliders"></i></button>
+    </header>
+    <div id="stage"></div>
+    <div id="msgs"></div>
+    <div id="bar">
+      <button class="g sq" id="pic" title="Fotoğraf gönder"><i data-ic="image"></i></button>
+      <input type="file" id="file" accept="image/*" hidden>
+      <input id="txt" placeholder="genel kanalına mesaj yaz..." autocomplete="off">
+      <button class="sq" id="send" title="Gönder"><i data-ic="send"></i></button>
+    </div>
+  </main>
+  <aside id="right"><div style="color:var(--mu);font-size:11px;letter-spacing:1px;margin-bottom:8px">ÜYELER</div><div id="members"></div></aside>
+</div>
+
+<div id="modal">
+  <div class="card">
+    <h3>Ayarlar <button class="g sq" id="sx"><i data-ic="x"></i></button></h3>
+    <div class="row">
+      <span id="sAv"></span>
+      <button class="g" id="sPick"><i data-ic="image" data-s="16"></i>Avatar seç</button>
+      <button class="g" id="sRm">Kaldır</button>
+      <input type="file" id="sFile" accept="image/*" hidden>
+    </div>
+    <div><label>İSİM RENGİ</label>
+      <div class="row"><input type="color" id="sCol"><div class="sw" id="sw"></div></div></div>
+    <div><label>DURUM / HAKKINDA</label><input id="sBio" maxlength="60" placeholder="Kısa bir yazı..."></div>
+    <div><label>BİLDİRİM SESİ</label>
+      <div class="row"><input type="checkbox" id="sSnd"><span>Ses bildirimleri açık</span></div>
+      <input type="range" id="sVol" min="0" max="1" step="0.05" style="margin-top:10px"></div>
+    <button id="sSave">Kaydet</button>
+  </div>
+</div>
+<div id="audios"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const I = {
+  hash: '<line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/>',
+  volume: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',
+  mic: '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>',
+  micoff: '<line x1="2" x2="22" y1="2" y2="22"/><path d="M9 9v3a3 3 0 0 0 5.1 2.1"/><path d="M15 9.3V5a3 3 0 0 0-5.7-1.3"/><path d="M19 10v2a7 7 0 0 1-.9 3.4M5 10v2a7 7 0 0 0 11 5.7"/><line x1="12" x2="12" y1="19" y2="22"/>',
+  monitor: '<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>',
+  stop: '<rect width="18" height="18" x="3" y="3" rx="2"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+  image: '<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',
+  send: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+  sliders: '<line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="2" x2="6" y1="14" y2="14"/><line x1="10" x2="14" y1="8" y2="8"/><line x1="18" x2="22" y1="16" y2="16"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  menu: '<line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>',
+  crown: '<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/>',
+  join: '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/>'
+};
+const ic = (n, s = 18) => `<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+document.querySelectorAll('[data-ic]').forEach(e => e.innerHTML = ic(e.dataset.ic, e.dataset.s || 18));
+
+let socket, me, mic, screen, peers = {}, inVoice = false, wired = false;
+let P = {}, MS = [], VL = [], ONL = [], watchers = {}, AC;
+const ICE = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }] };
+const ALL = ['Demo', 'Shaxxd', 'Hoons', 'Afraids', 'Owner5', 'Owner6'];
+const SWATCH = ['#ffffff', '#a3a3a3', '#f87171', '#fb923c', '#facc15', '#4ade80', '#22d3ee', '#60a5fa', '#a78bfa', '#f472b6'];
+let S = { sound: true, vol: 0.6 };
+try { S = { ...S, ...JSON.parse(localStorage.getItem('ph')) }; } catch (e) {}
+
+const esc = s => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+const col = n => P[n]?.color || '#ffffff';
+const av = (n, s = 34) => {
+  const a = P[n]?.avatar;
+  return `<span class="av" style="width:${s}px;height:${s}px;font-size:${s * .42}px">${a ? `<img src="${a}">` : esc((n || '?')[0].toUpperCase())}</span>`;
+};
+
+// ---- SES BİLDİRİMLERİ ----
+function ctx() { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); return AC; }
+function tone(seq) {
+  if (!S.sound) return;
+  try {
+    const c = ctx(); let t = c.currentTime;
+    seq.forEach(([f, d]) => {
+      const o = c.createOscillator(), g = c.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(S.vol * .35, t + .01);
+      g.gain.exponentialRampToValueAtTime(.0001, t + d);
+      o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + d); t += d * .8;
+    });
+  } catch (e) {}
+}
+const SND = { msg: [[880, .12], [1320, .18]], join: [[523, .1], [784, .16]], leave: [[784, .1], [523, .16]], screen: [[660, .1], [990, .1], [1320, .16]] };
+
+// ---- GİRİŞ / KAYIT ----
+let mode = 'login', CH = [], cur = 'genel', UN = {}, HM = false, LD = false;
+function setMode(m) {
+  mode = m; const r = m === 'register';
+  $('ttl').textContent = r ? 'Hesap Oluştur' : 'Giriş Yap';
+  $('pw2').style.display = r ? '' : 'none';
+  $('go').textContent = r ? 'Kayıt Ol' : 'Giriş Yap';
+  $('altq').textContent = r ? 'Zaten hesabın var mı?' : 'Hesabın yok mu?';
+  $('alt').textContent = r ? 'Giriş yap' : 'Kayıt ol'; $('err').textContent = '';
+}
+$('alt').onclick = () => setMode(mode === 'login' ? 'register' : 'login');
+setMode('login');
+fetch('/api/check').then(r => r.json()).then(d => setMode(d.known ? 'login' : 'register')).catch(() => {});
+function shrink(f, max, q, cb) {
+  const r = new FileReader();
+  r.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', q));
+    };
+    im.src = r.result;
+  };
+  r.readAsDataURL(f);
+}
+$('lf').onsubmit = e => {
+  e.preventDefault(); $('err').textContent = ''; ctx();
+  if (mode === 'register' && $('pw').value !== $('pw2').value) return $('err').textContent = 'Şifreler aynı değil';
+  if (socket) socket.close();
+  socket = io({ auth: { username: $('un').value, password: $('pw').value, mode } });
+  socket.on('connect_error', er => { $('err').textContent = er.message; socket.close(); });
+  socket.on('init', d => {
+    me = d.me; P = d.profiles || {}; CH = d.channels;
+    $('login').style.display = 'none'; $('app').style.display = 'grid';
+    if (!wired) { wired = true; wire(); }
+    renderMe(); renderVC(); openCh(cur);
+  });
+};
+function openCh(id) {
+  cur = id; UN[id] = 0; MS = []; HM = false; LD = false; $('msgs').innerHTML = '';
+  const n = CH.find(c => c.id === id)?.name || id;
+  $('chname').textContent = n; $('txt').placeholder = `#${n} kanalına mesaj yaz...`;
+  renderCh(); socket.emit('history', { ch: id });
+}
+function renderCh() {
+  $('chl').innerHTML = CH.map(c => `<div class="ch chb ${c.id === cur ? 'act' : ''}" data-ch="${c.id}">${ic('hash', 16)}${esc(c.name)}${UN[c.id] ? `<span class="bd">${UN[c.id]}</span>` : ''}</div>`).join('');
+}
+
+// ---- ARAYÜZ ----
+function msgHTML(m) {
+  const t = new Date(m.time).toLocaleTimeString('tr', { hour: '2-digit', minute: '2-digit' });
+  if (m.type === 'sys') return `<div class="sys" data-id="${m.id}">${ic(m.kind === 'screen' ? 'monitor' : m.kind === 'leave' ? 'logout' : 'join', 14)}<span style="color:${col(m.who)}">${esc(m.text)}</span><small>${t}</small></div>`;
+  return `<div class="m" data-id="${m.id}">${(m.user === me || P[me]?.owner) ? `<button class="del" data-del="${m.id}">${ic('x', 14)}</button>` : ''}${av(m.user, 38)}<div style="min-width:0"><div class="h"><b style="color:${col(m.user)}">${esc(m.user)}</b>${P[m.user]?.owner ? ic('crown', 13) : ''}<small>${t}</small></div>` +
+    (m.type === 'image' ? `<img class="p" src="${m.data}">` : `<div class="t">${esc(m.text)}</div>`) + `</div></div>`;
+}
+function renderAll() {
+  const box = $('msgs'); box.innerHTML = MS.map(msgHTML).join(''); box.scrollTop = box.scrollHeight;
+  renderMembers(); renderVoice(); renderMe();
+}
+function addMsg(m) {
+  MS.push(m); if (MS.length > 1500) MS.shift();
+  const box = $('msgs'), bottom = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
+  box.insertAdjacentHTML('beforeend', msgHTML(m));
+  if (bottom || m.user === me) box.scrollTop = box.scrollHeight;
+}
+function renderMembers() {
+  $('members').innerHTML = Object.keys(P).sort((a, b) => ONL.includes(b) - ONL.includes(a)).map(n => `<div class="u ${ONL.includes(n) ? '' : 'off'}">${av(n, 30)}<div style="min-width:0"><div style="color:${col(n)};font-weight:600">${n}</div>${P[n]?.bio ? `<small>${esc(P[n].bio)}</small>` : ''}</div></div>`).join('');
+}
+function renderVoice() {
+  $('vlist').innerHTML = VL.map(v => `<div class="u" data-vid="${v.id}">${av(v.name, 26)}<span style="color:${col(v.name)};font-weight:600">${esc(v.name)}</span>${v.sharing ? '<span class="live">CANLI</span>' : ''}</div>`).join('');
+}
+function renderMe() { $('meav').innerHTML = av(me, 34); $('mename').innerHTML = `<span style="color:${col(me)}">${esc(me || '')}</span>`; }
+function renderVC() {
+  const vc = $('vc'); vc.className = inVoice ? 'on' : '';
+  if (!inVoice) { vc.innerHTML = `<button id="join" style="width:100%">${ic('volume', 16)}Sese Katıl</button>`; $('join').onclick = joinVoice; return; }
+  const muted = mic && !mic.getAudioTracks()[0].enabled;
+  vc.innerHTML = `<button class="g" id="mute" title="Mikrofon">${ic(muted ? 'micoff' : 'mic')}</button>
+    <button class="g" id="scr" title="Ekran paylaş">${ic(screen ? 'stop' : 'monitor')}</button>
+    <button class="r" id="leave" title="Ayrıl">${ic('logout')}</button>`;
+  $('mute').onclick = () => { const t = mic.getAudioTracks()[0]; t.enabled = !t.enabled; renderVC(); };
+  $('scr').onclick = toggleScreen; $('leave').onclick = leaveVoice;
+}
+
+function wire() {
+  socket.on('msg', m => {
+    if (m.ch === cur) addMsg(m); else { UN[m.ch] = (UN[m.ch] || 0) + 1; renderCh(); }
+    if (m.type === 'sys') { if (m.who !== me) tone(SND[m.kind]); }
+    else if (m.user !== me) tone(SND.msg);
+  });
+  socket.on('history', d => {
+    if (d.ch !== cur) return; LD = false; HM = d.more;
+    const box = $('msgs');
+    if (d.before) { const h0 = box.scrollHeight; MS = d.list.concat(MS); box.innerHTML = MS.map(msgHTML).join(''); box.scrollTop = box.scrollHeight - h0; }
+    else { MS = d.list; renderAll(); }
+  });
+  socket.on('del', id => { MS = MS.filter(m => m.id !== id); document.querySelector(`[data-id="${id}"]`)?.remove(); });
+  $('chl').onclick = e => { const c = e.target.closest('[data-ch]'); if (c && c.dataset.ch !== cur) { openCh(c.dataset.ch); $('left').classList.remove('open'); } };
+  $('msgs').addEventListener('click', e => { const b = e.target.closest('[data-del]'); if (b) socket.emit('del', b.dataset.del); });
+  $('msgs').addEventListener('scroll', () => {
+    if ($('msgs').scrollTop < 40 && HM && !LD && MS.length) { LD = true; socket.emit('history', { ch: cur, before: MS[0].id }); }
+  });
+  socket.on('profiles', p => { P = p; renderAll(); });
+  socket.on('presence', p => { ONL = p.online; VL = p.voice; renderMembers(); renderVoice(); });
+  const send = () => { const v = $('txt').value.trim(); if (v) socket.emit('text', { ch: cur, text: v }); $('txt').value = ''; };
+  $('send').onclick = send;
+  $('txt').onkeydown = e => { if (e.key === 'Enter') send(); };
+  $('pic').onclick = () => $('file').click();
+  const sendImg = f => shrink(f, 1280, .78, d => socket.emit('image', { ch: cur, data: d }));
+  $('file').onchange = () => { if ($('file').files[0]) sendImg($('file').files[0]); $('file').value = ''; };
+  $('txt').addEventListener('paste', e => { const f = [...(e.clipboardData?.files || [])].find(x => x.type.startsWith('image/')); if (f) sendImg(f); });
+  $('menu').onclick = e => { e.stopPropagation(); $('left').classList.toggle('open'); };
+  document.querySelector('main').addEventListener('click', () => $('left').classList.remove('open'));
+  $('set1').onclick = $('set2').onclick = openSettings;
+
+  socket.on('voice:peers', ids => ids.forEach(getPeer));
+  socket.on('voice:joined', id => { if (inVoice) getPeer(id); });
+  socket.on('voice:left', closePeer);
+  socket.on('signal', ({ from, data }) => { if (inVoice) onSignal(from, data); });
+}
+
+// ---- AYARLAR ----
+let D = {};
+function openSettings() {
+  D = { color: col(me), avatar: P[me]?.avatar || '', bio: P[me]?.bio || '' };
+  $('sCol').value = D.color; $('sBio').value = D.bio; $('sSnd').checked = S.sound; $('sVol').value = S.vol;
+  $('sw').innerHTML = SWATCH.map(c => `<i style="background:${c}" data-c="${c}"></i>`).join('');
+  $('sw').querySelectorAll('i').forEach(i => i.onclick = () => { D.color = i.dataset.c; $('sCol').value = D.color; });
+  previewAv(); $('modal').classList.add('show');
+}
+function previewAv() {
+  const a = D.avatar;
+  $('sAv').innerHTML = `<span class="av" style="width:64px;height:64px;font-size:26px">${a ? `<img src="${a}">` : esc(me[0].toUpperCase())}</span>`;
+}
+$('sx').onclick = () => $('modal').classList.remove('show');
+$('modal').onclick = e => { if (e.target.id === 'modal') $('modal').classList.remove('show'); };
+$('sCol').oninput = () => D.color = $('sCol').value;
+$('sPick').onclick = () => $('sFile').click();
+$('sRm').onclick = () => { D.avatar = ''; previewAv(); };
+$('sFile').onchange = () => {
+  const f = $('sFile').files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const c = document.createElement('canvas'); c.width = c.height = 128;
+      const s = Math.min(im.width, im.height);
+      c.getContext('2d').drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, 128, 128);
+      D.avatar = c.toDataURL('image/jpeg', .8); previewAv();
+    };
+    im.src = r.result;
+  };
+  r.readAsDataURL(f); $('sFile').value = '';
+};
+$('sVol').oninput = () => { S.vol = +$('sVol').value; };
+$('sVol').onchange = () => tone(SND.msg);
+$('sSave').onclick = () => {
+  S.sound = $('sSnd').checked; S.vol = +$('sVol').value;
+  try { localStorage.setItem('ph', JSON.stringify(S)); } catch (e) {}
+  D.bio = $('sBio').value; socket.emit('profile', D);
+  $('modal').classList.remove('show');
+};
+
+// ---- SES / EKRAN PAYLAŞIMI ----
+async function joinVoice() {
+  try { mic = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); }
+  catch (e) { return alert('Mikrofon izni gerekli (siteyi https üzerinden açmalısın)'); }
+  inVoice = true; renderVC(); watch(socket.id, mic); socket.emit('voice:join');
+}
+async function toggleScreen() {
+  if (screen) return stopScreen();
+  try { screen = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false }); } catch (e) { return; }
+  const vt = screen.getVideoTracks()[0]; vt.onended = stopScreen;
+  Object.values(peers).forEach(p => p.pc.addTrack(vt, screen));
+  addTile('self', screen, 'Sen'); socket.emit('screen', true); renderVC();
+}
+function stopScreen() {
+  if (!screen) return;
+  screen.getTracks().forEach(t => t.stop());
+  Object.values(peers).forEach(p => p.pc.getSenders().forEach(s => { if (s.track && s.track.kind === 'video') p.pc.removeTrack(s); }));
+  removeTile('self'); screen = null; socket.emit('screen', false); renderVC();
+}
+function leaveVoice() {
+  stopScreen(); Object.keys(peers).forEach(closePeer);
+  Object.keys(watchers).forEach(k => { clearInterval(watchers[k]); delete watchers[k]; });
+  mic?.getTracks().forEach(t => t.stop());
+  inVoice = false; socket.emit('voice:leave'); renderVC();
+}
+function watch(id, stream) {
+  try {
+    const c = ctx(), an = c.createAnalyser(); an.fftSize = 256;
+    c.createMediaStreamSource(new MediaStream(stream.getAudioTracks())).connect(an);
+    const b = new Uint8Array(an.frequencyBinCount); let on = false;
+    clearInterval(watchers[id]);
+    watchers[id] = setInterval(() => {
+      an.getByteFrequencyData(b);
+      const v = b.reduce((a, x) => a + x, 0) / b.length > 14;
+      if (v !== on) { on = v; document.querySelectorAll(`[data-vid="${id}"]`).forEach(e => e.classList.toggle('speaking', v)); }
+    }, 120);
+  } catch (e) {}
+}
+function nameOf(id) { return VL.find(v => v.id === id)?.name || 'Kullanıcı'; }
+
+function getPeer(id) {
+  if (peers[id]) return peers[id];
+  const pc = new RTCPeerConnection(ICE);
+  const p = peers[id] = { pc, making: false, ignore: false, polite: socket.id < id };
+  mic.getTracks().forEach(t => pc.addTrack(t, mic));
+  if (screen) pc.addTrack(screen.getVideoTracks()[0], screen);
+  pc.onicecandidate = e => e.candidate && socket.emit('signal', { to: id, data: { candidate: e.candidate } });
+  pc.onnegotiationneeded = async () => {
+    try { p.making = true; await pc.setLocalDescription(); socket.emit('signal', { to: id, data: { description: pc.localDescription } }); }
+    catch (e) { console.error(e); } finally { p.making = false; }
+  };
+  pc.ontrack = ({ track, streams }) => {
+    const st = streams[0]; if (!st) return;
+    if (track.kind === 'audio') {
+      let a = document.getElementById('a' + id + st.id);
+      if (!a) { a = document.createElement('audio'); a.id = 'a' + id + st.id; a.autoplay = true; $('audios').appendChild(a); }
+      a.srcObject = st; watch(id, st);
+    } else {
+      const k = id + st.id;
+      addTile(k, st, nameOf(id));
+      track.onmute = () => removeTile(k);
+      track.onunmute = () => addTile(k, st, nameOf(id));
+      st.onremovetrack = () => removeTile(k);
+    }
+  };
+  return p;
+}
+async function onSignal(from, { description, candidate }) {
+  const p = getPeer(from), pc = p.pc;
+  try {
+    if (description) {
+      const collision = description.type === 'offer' && (p.making || pc.signalingState !== 'stable');
+      p.ignore = !p.polite && collision; if (p.ignore) return;
+      await pc.setRemoteDescription(description);
+      if (description.type === 'offer') { await pc.setLocalDescription(); socket.emit('signal', { to: from, data: { description: pc.localDescription } }); }
+    } else if (candidate) {
+      try { await pc.addIceCandidate(candidate); } catch (e) { if (!p.ignore) throw e; }
+    }
+  } catch (e) { console.error(e); }
+}
+function addTile(key, stream, label) {
+  let t = document.getElementById('t' + key);
+  if (!t) {
+    t = document.createElement('div'); t.className = 'tile'; t.id = 't' + key;
+    t.innerHTML = `<video autoplay playsinline muted controls></video><span>${esc(label)}</span>`;
+    $('stage').appendChild(t);
+  }
+  t.querySelector('video').srcObject = new MediaStream(stream.getVideoTracks());
+  $('stage').style.display = 'flex';
+}
+function removeTile(key) {
+  document.getElementById('t' + key)?.remove();
+  if (!$('stage').children.length) $('stage').style.display = 'none';
+}
+function closePeer(id) {
+  const p = peers[id]; if (!p) return;
+  p.pc.close(); delete peers[id]; clearInterval(watchers[id]); delete watchers[id];
+  document.querySelectorAll(`[id^="a${id}"],[id^="t${id}"]`).forEach(e => e.remove());
+  if (!$('stage').children.length) $('stage').style.display = 'none';
+}
+</script>
+</body>
+</html>
